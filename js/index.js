@@ -32,7 +32,6 @@ formProfile.addEventListener("submit", function(event){
         email: email
         } 
         localStorage.setItem("storage", JSON.stringify(dataStorage));
-        console.log("data baru");
     }else{
         dataStorage.name = nama;
         dataStorage.role = role,
@@ -42,33 +41,29 @@ formProfile.addEventListener("submit", function(event){
         dataStorage.experience = experience,
         dataStorage.email = email
         localStorage.setItem("storage", JSON.stringify(dataStorage));
-        console.log("data update");
     };
 
-    console.log(dataStorage);
+    document.getElementById("profile-form").style.display="none";
 })
 
 let buttonEdit = document.getElementById("btn-edit");
 
 buttonEdit.addEventListener("click", function(){
     document.getElementById("profile-form").style.display="block";
-    document.getElementById("name-input").placeholder = document.getElementById("name-profile").innerHTML;
-    document.getElementById("role-input").placeholder = document.getElementById("role-profile").innerHTML;
-    document.getElementById("usia-input").placeholder = document.getElementById("usia-profile").innerHTML;
-    document.getElementById("availabilitu-input").placeholder = document.getElementById("availability-profile").innerHTML;
-    document.getElementById("lokasi-input").placeholder = document.getElementById("lokasi-profile").innerHTML;
-    document.getElementById("experience-input").placeholder = document.getElementById("experience-profile").innerHTML;
-    document.getElementById("email-input").placeholder = document.getElementById("email-profile").innerHTML;
+    document.getElementById("name-input").value = document.getElementById("name-profile").innerHTML;
+    document.getElementById("role-input").value = document.getElementById("role-profile").innerHTML;
+    document.getElementById("usia-input").value = document.getElementById("usia-profile").innerHTML;
+    document.getElementById("availability-input").value = document.getElementById("availability-profile").innerHTML;
+    document.getElementById("lokasi-input").value = document.getElementById("lokasi-profile").innerHTML;
+    document.getElementById("experience-input").value = document.getElementById("experience-profile").innerHTML;
+    document.getElementById("email-input").value = document.getElementById("email-profile").innerHTML;
 })
 
 window.addEventListener("load", (_) => {
     try {
         const dataRead = localStorage.getItem(storage);
         const dataGet = JSON.parse(dataRead);
-        console.log("yes");
         if (typeof dataGet === 'object') {
-            console.log("yes");
-            console.log(dataGet);
             document.getElementById("name-profile").innerText = dataGet.name;
             document.getElementById("role-profile").innerText = dataGet.role;
             document.getElementById("usia-profile").innerText = dataGet.usia;
@@ -77,7 +72,6 @@ window.addEventListener("load", (_) => {
             document.getElementById("experience-profile").innerText = dataGet.experience;
             document.getElementById("email-profile").innerText = dataGet.email;
         }
-        
     } catch (error) {
         console.error("[handleReadTodo]:", error)
     }
