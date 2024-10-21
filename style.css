@@ -1,0 +1,30 @@
+.profile {
+    width: 1000px;
+    height: 200px;
+    background-color: antiquewhite;
+    margin-top: 20px;
+}
+.image-profile {
+    width: 150px;
+    border-radius: 50%;
+}
+#btn-edit, #btn-resume{
+    width: 100px;
+}
+#profile-form{
+    width: 750px;
+    height: 550px;
+    background-color: antiquewhite;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 20px;
+    display: none;
+}
+/* .profile-info{
+    display: flex;
+    justify-content: space-between;
+} */
+.profile-info p{
+    margin: 5px 0;
+}

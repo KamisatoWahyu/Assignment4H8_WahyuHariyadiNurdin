@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="profile container-fluid rounded-1 p-4">
+        <div class="row h-100 d-flex align-items-center">
+            <div class="col-md-3 d-flex justify-content-center">
+                <img src="defaultphoto.svg" alt="default" class="image-profile ">
+            </div>
+            <div class="col-md-5 d-flex flex-column">
+                <h3 for="nama" id="name-profile">Nama Anda</h3>
+                <label for="job" id="role-profile">Front-End Designer</label>               
+                <br>
+                <div>
+                    <button id="btn-edit" class="btn btn-primary">Edit</button>
+                    <button id="btn-resume" class="btn btn-outline-success" target="modal">Resume</button>
+                </div>
+            </div>
+            <div class="profile-info col-md d-flex flex-row">
+                <div class="info col-md-4">
+                    <p>Availability</p>
+                    <p>Usia</p>
+                    <p>Lokasi</p>
+                    <p>Pengalaman</p>
+                    <p>Email</p>
+                </div>
+                <div class="info">
+                    <p id="availability-profile">Full Time</p>
+                    <p id="usia-profile">19</p>
+                    <p id="lokasi-profile">Jakarta</p>
+                    <p id="experience-profile">2</p>
+                    <p id="email-profile">email@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="profile-form" class="form-section container-fluid p-4 h-100">
+        <form id="form-profile">
+            <label for="name">Nama</label>
+            <input type="text" name="name" id="name-input" class="form-control" placeholder="Nama anda" required>
+            <label for="role">Role</label>
+            <input type="text" name="role" id="role-input" class="form-control" placeholder="Role anda" required>
+            <label for="availability">Availability</label>
+            <input type="text" name="availability" id="availability-input" class="form-control" placeholder="Availability anda" required>
+            <label for="usia">Usia</label>
+            <input type="text" name="usia" id="usia-input" class="form-control" placeholder="Usia anda"  pattern="[0-9]{1,2}" title="Harap masukkan angka" required>
+            <label for="usia">Lokasi</label>
+            <input type="text" name="lokasi" id="lokasi-input" class="form-control" placeholder="Lokasi anda" required>
+            <label for="experience">Year Experience</label>
+            <input type="text" name="experience" id="experience-input" class="form-control" placeholder="Lama pengalaman anda" pattern="[0-9]" title="Harap masukkan angka" required>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email-input" class="form-control" placeholder="Email anda" title="Harap masukkan email" required><br>
+            <button id="bg-success" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </section>
+
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
