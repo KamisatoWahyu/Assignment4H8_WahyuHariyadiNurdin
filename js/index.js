@@ -4,7 +4,6 @@ let formProfile = document.getElementById("form-profile");
 
 formProfile.addEventListener("submit", function(event){
     event.preventDefault();
-
     let nama = document.getElementById("name-input").value;
     let role = document.getElementById("role-input").value;
     let usia = document.getElementById("usia-input").value;
@@ -13,13 +12,13 @@ formProfile.addEventListener("submit", function(event){
     let experience = document.getElementById("experience-input").value;
     let email = document.getElementById("email-input").value;
 
-    document.getElementById("name-profile").innerText = nama;
-    document.getElementById("role-profile").innerText = role;
-    document.getElementById("usia-profile").innerText = usia;
-    document.getElementById("availability-profile").innerText = availability;
-    document.getElementById("lokasi-profile").innerText = lokasi;
-    document.getElementById("experience-profile").innerText = experience;
-    document.getElementById("email-profile").innerText = email;
+    document.getElementsByClassName("name-profile")[0].innerText = nama;
+    document.getElementsByClassName("role-profile")[0].innerText = role;
+    document.getElementsByClassName("usia-profile")[0].innerText = usia;
+    document.getElementsByClassName("availability-profile")[0].innerText = availability;
+    document.getElementsByClassName("lokasi-profile")[0].innerText = lokasi;
+    document.getElementsByClassName("experience-profile")[0].innerText = experience;
+    document.getElementsByClassName("email-profile")[0].innerText = email;
 
     if(JSON.stringify(dataStorage) === '{}'){
         dataStorage = {
@@ -44,35 +43,90 @@ formProfile.addEventListener("submit", function(event){
     };
 
     document.getElementById("profile-form").style.display="none";
+    sessionStorage.setItem("loadedData", "1");
+    alert("Data sudah diubah!");
 })
 
 let buttonEdit = document.getElementById("btn-edit");
 
 buttonEdit.addEventListener("click", function(){
-    document.getElementById("profile-form").style.display="block";
-    document.getElementById("name-input").value = document.getElementById("name-profile").innerHTML;
-    document.getElementById("role-input").value = document.getElementById("role-profile").innerHTML;
-    document.getElementById("usia-input").value = document.getElementById("usia-profile").innerHTML;
-    document.getElementById("availability-input").value = document.getElementById("availability-profile").innerHTML;
-    document.getElementById("lokasi-input").value = document.getElementById("lokasi-profile").innerHTML;
-    document.getElementById("experience-input").value = document.getElementById("experience-profile").innerHTML;
-    document.getElementById("email-input").value = document.getElementById("email-profile").innerHTML;
+    if(document.getElementById("profile-form").style.display=="none"){
+        document.getElementById("profile-form").style.display="block";
+        if(sessionStorage.getItem("loadedData") == "1" && localStorage.getItem(storage) !== null){
+            document.getElementById("name-input").value = document.getElementsByClassName("name-profile")[0].innerHTML;
+            document.getElementById("role-input").value = document.getElementsByClassName("role-profile")[0].innerHTML;
+            document.getElementById("usia-input").value = document.getElementsByClassName("usia-profile")[0].innerHTML;
+            document.getElementById("availability-input").value = document.getElementsByClassName("availability-profile")[0].innerHTML;
+            document.getElementById("lokasi-input").value = document.getElementsByClassName("lokasi-profile")[0].innerHTML;
+            document.getElementById("experience-input").value = document.getElementsByClassName("experience-profile")[0].innerHTML;
+            document.getElementById("email-input").value = document.getElementsByClassName("email-profile")[0].innerHTML; 
+        }else{
+            document.getElementById("name-input").value = ""
+            document.getElementById("role-input").value = ""
+            document.getElementById("usia-input").value = ""
+            document.getElementById("availability-input").value = ""
+            document.getElementById("lokasi-input").value = ""
+            document.getElementById("experience-input").value = ""
+            document.getElementById("email-input").value = ""
+        }
+
+    }else{
+        document.getElementById("profile-form").style.display="none";
+    }
 })
 
 window.addEventListener("load", (_) => {
     try {
-        const dataRead = localStorage.getItem(storage);
-        const dataGet = JSON.parse(dataRead);
-        if (typeof dataGet === 'object') {
-            document.getElementById("name-profile").innerText = dataGet.name;
-            document.getElementById("role-profile").innerText = dataGet.role;
-            document.getElementById("usia-profile").innerText = dataGet.usia;
-            document.getElementById("availability-profile").innerText = dataGet.availability;
-            document.getElementById("lokasi-profile").innerText = dataGet.lokasi;
-            document.getElementById("experience-profile").innerText = dataGet.experience;
-            document.getElementById("email-profile").innerText = dataGet.email;
+        if (localStorage.getItem(storage)) {
+            profile(1);
+        }
+        if(sessionStorage.getItem("loadedData") && localStorage.getItem(storage)){
+            profile(0);
         }
     } catch (error) {
-        console.error("[handleReadTodo]:", error)
+        console.error("Gagal:", error)
     }
 })
+
+btnLoad = document.getElementById("btn-load");
+btnLoad.addEventListener("click", function(){
+    profile(0);
+    sessionStorage.setItem("loadedData", "1");
+})
+
+btnResume = document.getElementById("btn-resume");
+btnResume.addEventListener("click", function(){
+    if(sessionStorage.getItem("loadedData") == "1" && localStorage.getItem(storage) !== null){
+        if(document.getElementsByClassName("info")[2]){
+            document.getElementsByClassName("info")[2].style.display="none";
+            document.getElementsByClassName("info")[3].style.display="none";
+            document.getElementById("btn-load").style.display="none";
+        } 
+        document.getElementsByClassName("profile-info")[1].innerHTML = `<p>Data sudah disubmit</p>`;
+        console.log("loadedData:", sessionStorage.getItem("loadedData"));
+        console.log("localStorage item:", localStorage.getItem(storage));
+    }else if(localStorage.getItem(storage) == null){
+        if(document.getElementsByClassName("info")[2]){
+            document.getElementsByClassName("info")[2].style.display="none";
+            document.getElementsByClassName("info")[3].style.display="none";
+            document.getElementById("btn-load").style.display="none";
+        }
+        document.getElementsByClassName("profile-info")[1].innerHTML = `<p>Belum ada data tersimpan</p>`;
+        sessionStorage.setItem("loadedData", "0");
+        console.log("loadedData:", sessionStorage.getItem("loadedData"));
+        console.log("localStorage item:", localStorage.getItem(storage));
+    }
+})
+
+function profile(i){
+    const dataRead = localStorage.getItem(storage);
+    const dataGet = JSON.parse(dataRead);
+
+    document.getElementsByClassName("name-profile")[i].innerText = dataGet.name;
+    document.getElementsByClassName("role-profile")[i].innerText = dataGet.role;
+    document.getElementsByClassName("usia-profile")[i].innerText = dataGet.usia;
+    document.getElementsByClassName("availability-profile")[i].innerText = dataGet.availability;
+    document.getElementsByClassName("lokasi-profile")[i].innerText = dataGet.lokasi;
+    document.getElementsByClassName("experience-profile")[i].innerText = dataGet.experience;
+    document.getElementsByClassName("email-profile")[i].innerText = dataGet.email;
+}

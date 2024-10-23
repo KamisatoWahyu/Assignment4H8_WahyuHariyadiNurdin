@@ -21,10 +21,9 @@
     padding: 20px;
     display: none;
 }
-/* .profile-info{
-    display: flex;
-    justify-content: space-between;
-} */
+.info{
+    display:block;
+}
 .profile-info p{
     margin: 5px 0;
 }
